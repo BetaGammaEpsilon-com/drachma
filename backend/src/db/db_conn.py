@@ -39,7 +39,7 @@ def create_user(conn, user):
 
     return c.lastrowid
 
-def create_tx(conn, tx)
+def create_tx(conn, tx):
     """Create new tx
     :param conn:
     :param tx:
