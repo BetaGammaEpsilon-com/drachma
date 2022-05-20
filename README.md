@@ -20,9 +20,13 @@ TODO
 
 &nbsp;&nbsp;&nbsp;&nbsp;```conda install -r requirements.txt```
 
-6. Run the program:
+6. Set up the program databases and tables:
 
-&nbsp;&nbsp;&nbsp;&nbsp;```python main.py```
+&nbsp;&nbsp;&nbsp;&nbsp;```python setup.py```
+
+7. Run the program:
+
+&nbsp;&nbsp;&nbsp;&nbsp;```python run.py```
 
 #### Frontend
 TODO
