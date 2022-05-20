@@ -2,13 +2,18 @@ import sqlite3
 from sqlite3 import Error
 
 def create_connection(db_file):
-    """create a database connection to SQLite database
-    :param db_file: database file
-    return: Connection"""
+    """
+    Create a database connection to SQLite database
+
+    Args:
+        db_file (string): path to SQLite database file (.db)
+
+    Returns:
+        SQLite Connection: the connection object
+    """    
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
     except Error as e:
         print(e)
     return conn
