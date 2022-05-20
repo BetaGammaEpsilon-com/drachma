@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS tx (
-    tx_id integer PRIMARY KEY,
+    txid integer PRIMARY KEY,
     uid integer NOT NULL,
     tx_date date NOT NULL,
     price float NOT NULL,
