@@ -1,4 +1,4 @@
-from src.models import *
+from app.models import *
 
 def access_user_by_uid(uid):
     pass

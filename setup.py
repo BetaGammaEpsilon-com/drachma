@@ -2,7 +2,7 @@
 RUN THIS FILE TO SETUP RESOURCES FOR BACKEND
 """
 import os
-from src.db_functions import db_setup
+from app.db_functions import db_setup
 
 DB_NAME = 'drachma.db'
 DB_PATH = f'resources/{DB_NAME}'

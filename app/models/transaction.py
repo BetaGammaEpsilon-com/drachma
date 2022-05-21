@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.models.txstatus import TxStatus
+from app.models.txstatus import TxStatus
 
 class Transaction():
 

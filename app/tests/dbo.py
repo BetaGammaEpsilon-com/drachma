@@ -1,9 +1,9 @@
 import traceback
 import uuid
 
-from src.db_functions.db_operations import *
-from src.models.transaction import Transaction
-from src.models.user import User
+from app.db_functions.db_operations import *
+from app.models.transaction import Transaction
+from app.models.user import User
 
 def test_dbo():
     conn = create_connection()
