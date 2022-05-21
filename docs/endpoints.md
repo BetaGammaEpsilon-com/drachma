@@ -14,18 +14,18 @@ Home dashboard with login info for treasurer(?).
 
 `GET /version`
 
-Testing endpoint. Should return current release verison of Drachma in body (ex. `{'version': 1.0.0}`).
+Testing endpoint. Should return current release verison of Drachma in body (ex. `{'version': '1.0.0'}`).
 
 ## Users
 
-`GET /:uid` OR
-`GET /:name` -> `REDIRECT` to `/:uid`
+`GET /user/<uid>` OR
+`GET /user/<name>` -> `REDIRECT` to `/user/<uid>`
 
 Displays all listed transactions of the user, separated by verification status.
 
 <hr />
 
-`POST /:uid/tx`
+`POST /<uid>/tx`
 
 Request Body:
 
@@ -73,7 +73,7 @@ Adds a transaction to the verified table given a `uid`.
 
 <hr />
 
-`PUT /tres/:txid`
+`PUT /tres/<txid>`
 
 Request Body:
 
@@ -92,7 +92,7 @@ Updates transaction `txid` to have the given parameters. On update of any parame
 
 <hr />
 
-`DELETE /tres/:txid`
+`DELETE /tres/<txid>`
 
 Deletes transaction `txid` from verified or unverified table, whichever it exists on.
 
