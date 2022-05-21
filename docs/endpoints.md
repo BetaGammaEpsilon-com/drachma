@@ -6,6 +6,9 @@
 Guide for endpoints and their logic. In a change to an endpoint _UPDATE THIS FILE BEFORE COMMIT_.
 
 ## Home and Tests
+
+#### Endpoints written in `/app/routes/home.py`
+
 `GET /`
 
 Home dashboard with login info for treasurer(?).
@@ -18,6 +21,8 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 
 ## Users
 
+#### Endpoints written in `/app/routes/user.py`
+
 `GET /user/<uid>` OR
 `GET /user/<name>` -> `REDIRECT` to `/user/<uid>`
 
@@ -25,7 +30,7 @@ Displays all listed transactions of the user, separated by verification status.
 
 <hr />
 
-`POST /<uid>/tx`
+`POST /user/<uid>/tx`
 
 Request Body:
 
@@ -42,6 +47,8 @@ Request Body:
 Adds a transaction to the unverified table from `uid` for the treasurer to view.
 
 ## Treasurer
+
+#### Endpoints written in `/app/routes/treasurer.py`
 
 `GET /tres`
 

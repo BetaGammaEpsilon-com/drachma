@@ -10,10 +10,8 @@ class User():
             balance (integer, optional): The initial balance of the User. Defaults to 0.0.
         """
         self.name = name
+        self.uid = uid
         self.balance = balance
-        
-        if uid:
-            self.uid = uid
         
         # table name listed with this entry
         self.tbl = 'users'
@@ -25,7 +23,20 @@ class User():
         ]
         
     def __str__(self):
-        return f'<User: NAME: {self.name}, BALANCE: {self.balance}>'
+        return f'<User: UID: {self.uid}, NAME: {self.name}, BALANCE: {self.balance}>'
+    
+    def serialize(self):
+        """
+        Turns a User's data into a dictionary for passing to the frontend.
+
+        Returns:
+            dict: The values of this User
+        """        
+        return {
+            'uid': self.uid,
+            'name': self.name,
+            'balance': self.balance
+        }
 
     def sqlify(self):
         """
