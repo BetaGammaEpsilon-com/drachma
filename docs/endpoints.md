@@ -24,8 +24,7 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 
 #### Endpoints written in `/app/routes/user.py`
 
-`GET /user/<uid>` OR
-`GET /user/<name>` -> `REDIRECT` to `/user/<uid>`
+`GET /user/<uid>`
 
 Displays all listed transactions of the user, separated by verification status.
 
@@ -52,7 +51,13 @@ Adds a transaction to the unverified table from `uid` for the treasurer to view.
 
 `GET /tres`
 
-Displays all transactions for the treasurer to see. Homepage for all Drachma capabilities. Spending visualizations and metrics displayed here.
+Returns all transactions for the treasurer to see, totals for each verification and overall. (_TODO_ more metrics)
+
+<hr />
+
+`GET /tres/visualize`
+
+Creates spending visualizations.
 
 <hr />
 
@@ -80,8 +85,13 @@ Adds a transaction to the verified table given a `uid`.
 
 <hr />
 
+`GET /tres/tx/<txid>`
 
-`PUT /tres/<txid>`
+Returns information about the given transaction
+
+<hr />
+
+`PUT /tres/tx/<txid>`
 
 Request Body:
 
@@ -100,7 +110,7 @@ Updates transaction `txid` to have the given parameters. On update of any parame
 
 <hr />
 
-`DELETE /tres/<txid>`
+`DELETE /tres/tx/<txid>`
 
 Deletes transaction `txid` from verified or unverified table, whichever it exists on.
 

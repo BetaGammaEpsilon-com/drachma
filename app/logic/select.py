@@ -59,5 +59,22 @@ def get_transactions_by_uid(uid):
         'unverified': unverified
     }
 
-def access_tx_by_txid(txid):
+def get_tx_by_txid(txid):
     pass
+
+def user_exists(uid):
+    pass
+
+def tx_exists(txid):
+    """
+    Determines whether a Transaction at given TXID exists
+
+    Args:
+        txid (int): The Transaction's TXID
+
+    Returns:
+        boolean: Whether or not the Transaction exists
+    """
+    where = f'txid = {txid}'
+    res = select('tx', where) + select('tx_unverified', where)
+    return len(res) > 0
