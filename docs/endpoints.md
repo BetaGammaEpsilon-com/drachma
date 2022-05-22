@@ -1,11 +1,14 @@
 # Endpoints
 
-<!-- TODO -->
-[Postman](#)
+[Postman](https://www.postman.com/aviation-pilot-81500845/workspace/drachma/overview)
+
 
 Guide for endpoints and their logic. In a change to an endpoint _UPDATE THIS FILE BEFORE COMMIT_.
 
 ## Home and Tests
+
+#### Endpoints written in `/app/routes/home.py`
+
 `GET /`
 
 Home dashboard with login info for treasurer(?).
@@ -14,26 +17,28 @@ Home dashboard with login info for treasurer(?).
 
 `GET /version`
 
-Testing endpoint. Should return current release verison of Drachma in body (ex. `{'version': 1.0.0}`).
+
+Testing endpoint. Should return current release verison of Drachma in body (ex. `{'version': '1.0.0'}`).
 
 ## Users
 
-`GET /:uid` OR
-`GET /:name` -> `REDIRECT` to `/:uid`
+#### Endpoints written in `/app/routes/user.py`
+
+`GET /user/<uid>` OR
+`GET /user/<name>` -> `REDIRECT` to `/user/<uid>`
 
 Displays all listed transactions of the user, separated by verification status.
 
 <hr />
 
-`POST /:uid/tx`
+`POST /user/<uid>/tx`
 
 Request Body:
 
 ```
 {
-    'uid': <uid>,
+
     'price': <float>,
-    'status': 0,
     'motion': <string>,
     'description': <string>
 }
@@ -42,6 +47,8 @@ Request Body:
 Adds a transaction to the unverified table from `uid` for the treasurer to view.
 
 ## Treasurer
+
+#### Endpoints written in `/app/routes/treasurer.py`
 
 `GET /tres`
 
@@ -73,7 +80,8 @@ Adds a transaction to the verified table given a `uid`.
 
 <hr />
 
-`PUT /tres/:txid`
+
+`PUT /tres/<txid>`
 
 Request Body:
 
@@ -92,7 +100,7 @@ Updates transaction `txid` to have the given parameters. On update of any parame
 
 <hr />
 
-`DELETE /tres/:txid`
+`DELETE /tres/<txid>`
 
 Deletes transaction `txid` from verified or unverified table, whichever it exists on.
 

@@ -127,3 +127,38 @@ def delete(tbl, where):
     cursor.execute(sql)
     conn.commit()
     conn.close()
+    
+def select(tbl, where, cols=[]):
+    """
+    Selects from table where condition is met.
+
+    Args:
+        tbl (string): Table name of table to select from
+        where (string): The SQL containing the WHERE condition
+        cols (list, optional): Columns to pull from query. 
+            If no columns are specified it will pull whole table.
+            
+    Returns:
+        list: rows returned from SELECT
+    """
+    conn = create_connection()
+    cursor = conn.cursor()
+    if len(cols) > 0:
+        sql = f'''
+            SELECT ({', '.join(cols)}) FROM 
+                {tbl}
+            WHERE
+                {where};
+        '''
+    else:
+        sql = f'''
+            SELECT * FROM 
+                {tbl}
+            WHERE
+                {where};
+        '''
+    cursor.execute(sql)
+    res = cursor.fetchall()
+    conn.close()
+    
+    return res
