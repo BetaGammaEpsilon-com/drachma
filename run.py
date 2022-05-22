@@ -4,6 +4,8 @@ RUN THIS FILE TO START UP BACKEND SERVER
 import os
 import argparse
 
+from app import app
+
 parser = argparse.ArgumentParser()
 
 if __name__ == '__main__':
@@ -12,3 +14,5 @@ if __name__ == '__main__':
     if not os.path.exists('resources/drachma.db'):
         # if not, make db and set up file
         exit('DB does not exist -- run setup.py before continuing')
+        
+    app.run(debug=True)

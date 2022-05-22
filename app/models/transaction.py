@@ -1,9 +1,9 @@
 from datetime import datetime
-from src.models.txstatus import TxStatus
+from app.models.txstatus import TxStatus
 
 class Transaction():
 
-    def __init__(self, uid, price, status, txid=None, motion='NULL', description='NULL'):
+    def __init__(self, uid, price, status, txid=None, tx_date=None, motion='NULL', description='NULL'):
         """
         Defines a Transaction in the `tx` table.
 
@@ -32,8 +32,9 @@ class Transaction():
         else:
             self.tbl = 'tx_unverified'
             
-        if txid:
-            self.txid = txid
+        self.txid = txid
+        
+        self.tx_date = tx_date
         
         # table columns to insert into
         self.cols = [
@@ -46,6 +47,22 @@ class Transaction():
         
     def __str__(self):
         return f'<Transaction: UID: {self.uid}, PRICE: {self.price}, VERIFICATION: {self.status}>'
+
+    def serialize(self):
+        """
+        Turns a Transaction's data into a dictionary for passing to the frontend.
+
+        Returns:
+            dict: The values of this Transaction
+        """     
+        return {
+            'txid': self.txid,
+            'uid': self.uid,
+            'tx_date': datetime.strftime(self.tx_date, '%Y-%m-%d %H:%M:%S'),
+            'price': self.price,
+            'motion': self.motion,
+            'description': self.description
+        }
 
     def sqlify(self):
         """

@@ -1,0 +1,63 @@
+from app.models import *
+from app.db_functions.db_operations import select
+from app.util.model_factory import *
+
+def get_user_by_uid(uid):
+    """
+    Given a UID, return the full User
+
+    Args:
+        uid (int): The UID to lookup
+        
+    Returns:
+        User: The User accessed at this UID
+    """    
+    where = f'uid = {uid}'
+    result = select('users', where)
+    if len(result) == 0:
+        raise IndexError('No User with that UID in the users table')
+    user = create_user_from_sqlresponse(result[0])
+    return user
+
+def get_uid_by_name(name):
+    """
+    Given a User's name, returns the UID of that User
+
+    Args:
+        name (string): The name of the User
+    """
+    columns = ['uid']
+    where = f"name = '{name}'"
+    result = select('users', where, cols=columns)
+    if len(result) == 0:
+        raise IndexError('No User with that name in the users table')
+    uid = result[0][0]
+    return uid
+
+def get_transactions_by_uid(uid):
+    """
+    Gets a list of all Transactions by a certain User
+
+    Args:
+        uid (int): The UID of the User
+
+    Returns:
+        dict: Two lists of Transactions, verified and unverified
+    """
+    where = f'uid = {uid}'
+    verified = select('tx', where)
+    unverified = select('tx_unverified', where)
+    
+    # convert to Transaction objects
+    if len(verified) != 0:
+        verified = [create_tx_from_sqlresponse(sqlrow, 1).serialize() for sqlrow in verified]
+    if len(unverified) != 0:
+        unverified = [create_tx_from_sqlresponse(sqlrow, 0).serialize() for sqlrow in unverified]
+    
+    return {
+        'verified': verified,
+        'unverified': unverified
+    }
+
+def access_tx_by_txid(txid):
+    pass

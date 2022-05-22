@@ -1,4 +1,4 @@
-from src.db_functions.db_operations import run_script
+from app.db_functions.db_operations import run_script
 
 def create_all():
     """
