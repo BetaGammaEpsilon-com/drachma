@@ -2,6 +2,7 @@
 
 [Postman](https://www.postman.com/aviation-pilot-81500845/workspace/drachma/overview)
 
+
 Guide for endpoints and their logic. In a change to an endpoint _UPDATE THIS FILE BEFORE COMMIT_.
 
 ## Home and Tests
@@ -15,6 +16,7 @@ Home dashboard with login info for treasurer(?).
 <hr />
 
 `GET /version`
+
 
 Testing endpoint. Should return current release verison of Drachma in body (ex. `{'version': '1.0.0'}`).
 
@@ -35,6 +37,7 @@ Request Body:
 
 ```
 {
+
     'price': <float>,
     'motion': <string>,
     'description': <string>
@@ -76,6 +79,7 @@ Request Body:
 Adds a transaction to the verified table given a `uid`.
 
 <hr />
+
 
 `PUT /tres/<txid>`
 
