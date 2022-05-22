@@ -1,7 +1,6 @@
 # Endpoints
 
-<!-- TODO -->
-[Postman](#)
+[Postman](https://www.postman.com/aviation-pilot-81500845/workspace/drachma/overview)
 
 Guide for endpoints and their logic. In a change to an endpoint _UPDATE THIS FILE BEFORE COMMIT_.
 
@@ -36,9 +35,7 @@ Request Body:
 
 ```
 {
-    'uid': <uid>,
     'price': <float>,
-    'status': 0,
     'motion': <string>,
     'description': <string>
 }

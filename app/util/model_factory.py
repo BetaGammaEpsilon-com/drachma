@@ -34,7 +34,6 @@ def create_tx_from_sqlresponse(sqlres, status):
     price = float(sqlres[3])
     motion = sqlres[4]
     desc = sqlres[5]
-    print(motion, desc)
     return Transaction(
         uid, 
         price, 
