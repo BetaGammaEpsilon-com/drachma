@@ -1,28 +1,7 @@
 import sqlite3
 
-SQL_FOLDER = 'src/db_functions/sql/'
+SQL_FOLDER = 'app/db_functions/sql/'
 DATABASE_PATH = 'resources/drachma.db'
-
-def run_script(file):
-    """
-    Executes a given SQL script. 
-    Script must be in the src/db_functions/sql folder
-
-    Args:
-        cursor (SQLite Cursor): The cursor to make the query
-        file (string): file name
-    """
-    conn = create_connection()
-    cursor = conn.cursor()
-    
-    full_path = SQL_FOLDER + file
-    sql_file = open(full_path, 'r')
-    sql = ''.join(sql_file.readlines())
-    
-    res = cursor.executescript(sql)
-    conn.commit()
-    conn.close()
-    return res
 
 def create_connection():
     """
@@ -128,7 +107,7 @@ def delete(tbl, where):
     conn.commit()
     conn.close()
     
-def select(tbl, where, cols=[]):
+def select(tbl, where=None, cols=[]):
     """
     Selects from table where condition is met.
 
@@ -146,19 +125,61 @@ def select(tbl, where, cols=[]):
     if len(cols) > 0:
         sql = f'''
             SELECT ({', '.join(cols)}) FROM 
-                {tbl}
-            WHERE
-                {where};
-        '''
+                {tbl}'''
     else:
         sql = f'''
             SELECT * FROM 
-                {tbl}
-            WHERE
-                {where};
-        '''
+                {tbl}'''
+    
+    if where:
+        sql += f'WHERE {where};'
+        
     cursor.execute(sql)
     res = cursor.fetchall()
     conn.close()
     
+    return res
+
+def run_script(file):
+    """
+    Executes a given SQL script. 
+    Script must be in the app/db_functions/sql folder
+
+    Args:
+        cursor (SQLite Cursor): The cursor to make the query
+        file (string): file name
+    """
+    conn = create_connection()
+    cursor = conn.cursor()
+    
+    full_path = SQL_FOLDER + file
+    sql_file = open(full_path, 'r')
+    sql = ''.join(sql_file.readlines())
+    
+    res = cursor.executescript(sql)
+    conn.commit()
+    conn.close()
+    return res
+
+def sum_col(tbl, col):
+    """
+    Sums a column in the given table
+
+    Args:
+        tbl (string): Name of the table
+        col (string): Column to sum
+
+    Returns:
+        int: sum
+    """
+    conn = create_connection()
+    cursor = conn.cursor()
+    
+    sql = f'SELECT SUM({col}) FROM {tbl};'
+    
+    cursor.execute(sql)
+    res = cursor.fetchone()
+    conn.close()
+    if len(res) == 0:
+        res = 0
     return res

@@ -13,7 +13,7 @@ def get_user_by_uid(uid):
         User: The User accessed at this UID
     """    
     where = f'uid = {uid}'
-    result = select('users', where)
+    result = select('users', where=where)
     if len(result) == 0:
         raise IndexError('No User with that UID in the users table')
     user = create_user_from_sqlresponse(result[0])
@@ -28,7 +28,7 @@ def get_uid_by_name(name):
     """
     columns = ['uid']
     where = f"name = '{name}'"
-    result = select('users', where, cols=columns)
+    result = select('users', where=where, cols=columns)
     if len(result) == 0:
         raise IndexError('No User with that name in the users table')
     uid = result[0][0]
@@ -45,8 +45,8 @@ def get_transactions_by_uid(uid):
         dict: Two lists of Transactions, verified and unverified
     """
     where = f'uid = {uid}'
-    verified = select('tx', where)
-    unverified = select('tx_unverified', where)
+    verified = select('tx', where=where)
+    unverified = select('tx_unverified', where=where)
     
     # convert to Transaction objects
     if len(verified) != 0:
@@ -76,5 +76,5 @@ def tx_exists(txid):
         boolean: Whether or not the Transaction exists
     """
     where = f'txid = {txid}'
-    res = select('tx', where) + select('tx_unverified', where)
+    res = select('tx', where=where) + select('tx_unverified', where=where)
     return len(res) > 0

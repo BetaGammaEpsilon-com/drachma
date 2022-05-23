@@ -12,3 +12,9 @@ def import_drac():
     """
     # TODO
     pass
+
+def export_drac():
+    """
+    Export local DB to csv (?)
+    """
+    pass

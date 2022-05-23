@@ -1,8 +1,7 @@
 from flask import Blueprint, request
 
 from app.logic.select import tx_exists
-from app.logic.treasurer import *
-
+from app.logic.treasurer import logic_tres_get_all
 from app.util.response import format_json
 from app.util.error import not_found_error
 
@@ -18,11 +17,12 @@ def route_tres():
     Returns:
         Response: Response to send back
     """
-    return format_json(logic_get_all())
+    return format_json(logic_tres_get_all())
 
 @tres_bp.route('/visualize')
 def route_visualize():
-    """_summary_
+    """
+    
 
     Returns:
         Response: Response to send back
@@ -31,7 +31,8 @@ def route_visualize():
 
 @tres_bp.route('/report')
 def route_report():
-    """_summary_
+    """
+    
 
     Returns:
         Response: Response to send back
@@ -40,7 +41,8 @@ def route_report():
 
 @tres_bp.route('/tx', methods=['POST'])
 def route_add_tx():
-    """_summary_
+    """
+    
 
     Returns:
         Response: Response to send back
@@ -72,6 +74,7 @@ def route_update_tx(txid):
         res = ''
     
     elif request.method == 'DELETE':
+        # delete Transaction
         res = ''
         
     return format_json(res)

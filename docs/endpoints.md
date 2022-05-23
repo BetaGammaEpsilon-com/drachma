@@ -36,7 +36,6 @@ Request Body:
 
 ```
 {
-
     'price': <float>,
     'motion': <string>,
     'description': <string>
