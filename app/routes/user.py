@@ -21,18 +21,6 @@ def route_user_info(uid):
     """
     return format_json(logic_get_user_info(uid))
 
-# robert-chatterton: TODO - this might be useless as is. Might keep to simply return UID?
-@user_bp.route('/<string:name>') 
-def redirect_to_user_info(name):
-    """
-    Pull UID for given name, if exists, and route to /user/<uid>
-
-    Args:
-        name (string): The User's name to pull
-    """
-    uid = get_uid_by_name(name)
-    return redirect(f'{URL_PREFIX}/{uid}')
-
 @user_bp.route('/<uid>/tx', methods=['POST'])
 def route_user_add_tx(uid):
     """
@@ -47,3 +35,15 @@ def route_user_add_tx(uid):
     except KeyError:
         # one of the parameters wasn't passed: send Bad Request 400
         return format_json(bad_request_error(f'POST to /user/{uid}/tx did not contain necessary headers: price, motion, description'), status=400)
+
+# robert-chatterton: TODO - this might be useless as is. Might keep to simply return UID?
+@user_bp.route('/<string:name>') 
+def redirect_to_user_info(name):
+    """
+    Pull UID for given name, if exists, and route to /user/<uid>
+
+    Args:
+        name (string): The User's name to pull
+    """
+    uid = get_uid_by_name(name)
+    return redirect(f'{URL_PREFIX}/{uid}')

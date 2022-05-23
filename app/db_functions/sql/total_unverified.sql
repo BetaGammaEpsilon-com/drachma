@@ -1,0 +1,1 @@
+SELECT SUM(price) FROM tx_unverified;
