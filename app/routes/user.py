@@ -4,12 +4,27 @@ from flask.json import loads
 from app.logic.select import *
 from app.db_functions.db_operations import *
 
-from app.logic.user import logic_get_user_info, logic_user_add_tx
+from app.logic.user import logic_get_user_info, logic_user_add_tx, logic_create_user
 from app.util.response import format_json
 from app.util.error import bad_request_error
 
 URL_PREFIX = '/user'
 user_bp = Blueprint('user', __name__, url_prefix=URL_PREFIX)
+
+@user_bp.route('', methods=['POST'])
+def route_user_creation():
+    """
+    Creates a User
+
+    Returns:
+        dict: Response packet
+    """
+    try:
+        return format_json(logic_create_user(request))
+    except KeyError:
+        return bad_request_error('Error in creating new user -- must include `name` and `balance` fields.')
+    except sqlite3.IntegrityError:
+        return bad_request_error('`name` parameter must be unique.')
 
 @user_bp.route('/<int:uid>')
 def route_user_info(uid):

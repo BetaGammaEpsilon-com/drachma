@@ -15,4 +15,4 @@ if __name__ == '__main__':
         # if not, make db and set up file
         exit('DB does not exist -- run setup.py before continuing')
         
-    app.run(debug=True)
+    app.run('0.0.0.0', debug=True)
