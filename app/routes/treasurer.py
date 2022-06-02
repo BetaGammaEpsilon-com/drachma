@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from app.logic.select import tx_exists
-from app.logic.treasurer import logic_tres_get_all
+from app.logic.treasurer import logic_tres_get_all, logic_tres_get_report
 from app.util.response import format_json
 from app.util.error import not_found_error
 
@@ -37,7 +37,7 @@ def route_report():
     Returns:
         Response: Response to send back
     """
-    return ''
+    return logic_tres_get_report()
 
 @tres_bp.route('/tx', methods=['POST'])
 def route_add_tx():

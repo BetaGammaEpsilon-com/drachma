@@ -11,7 +11,7 @@ def logic_tres_get_all():
     """
     v_tx, u_tx = _get_tx()
     v_tot, u_tot, tot = _get_totals()
-    users = _get_users()
+    users = [u.serialize() for u in _get_users()]
     return {
         'verified_tx': v_tx,
         'unverified_tx': u_tx,
@@ -45,7 +45,7 @@ def _get_users():
         list: List of serialized Users
     """    
     res = select('users')
-    return [create_user_from_sqlresponse(tup).serialize() for tup in res]
+    return [create_user_from_sqlresponse(tup) for tup in res]
 
 def _get_totals():
     """
@@ -61,3 +61,19 @@ def _get_totals():
     total = verified_total + unverified_total
     
     return verified_total, unverified_total, total
+
+def logic_tres_get_report():
+    """
+    Pulls users from database and generates markdown string to be displayed by the frontend
+    Return:
+        dict: type = report and report = formatted markdown string to create table
+    """
+    users = _get_users()
+    report = f"| Brother | Balance |\n| :--- | :---: |\n"
+    for u in users:
+        report += u.markdownify() + '\n'
+    print(report)
+    return {
+        'type': 'report',
+        'report': report
+    }
