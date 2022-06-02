@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     # create all tables
     try:
-        db_setup.create_all(DB_PATH)
+        db_setup.create_all()
     except Exception as e:
         exit(f'DB setup failed -- check error:\n{e}')
     
