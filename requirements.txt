@@ -1,2 +1,11 @@
-Flask==2.0.2
-flask_cors==3.0.10
+certifi==2021.10.8
+click @ file:///tmp/build/80754af9/click_1646056590078/work
+Flask @ file:///tmp/build/80754af9/flask_1634118196080/work
+Flask-Markdown==0.3
+importlib-metadata==4.11.3
+itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
+Jinja2 @ file:///opt/conda/conda-bld/jinja2_1647436528585/work
+Markdown==3.3.6
+MarkupSafe @ file:///tmp/build/80754af9/markupsafe_1621523467000/work
+Werkzeug @ file:///opt/conda/conda-bld/werkzeug_1645628268370/work
+zipp==3.7.0
