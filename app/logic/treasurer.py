@@ -64,12 +64,12 @@ def _get_totals():
 
 def logic_tres_get_report():
     """
-    Pulls users from database and generates markdown string to be displayed by the frontend
+    Pulls users from database and generates Markdown string to be displayed by the frontend
     Return:
-        dict: type = report and report = formatted markdown string to create table
+        dict: type = report and report = formatted Markdown string to create table
     """
     users = _get_users()
-    report = f"| Brother | Balance |\n| :--- | :---: |\n"
+    report = f'| Brother | Balance |\n| :--- | :---: |\n'
     for u in users:
         report += u.markdownify() + '\n'
     print(report)

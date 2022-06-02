@@ -55,8 +55,8 @@ class User():
         Turns the given Entry into a formatted Markdown string to be added to a table
 
         Returns:
-            string: The formatted markdown string
+            string: The formatted Markdown string
         """
 
-        md = f"| {self.name} | {self.balance} |"
+        md = f'| {self.name} | {self.balance} |'
         return md

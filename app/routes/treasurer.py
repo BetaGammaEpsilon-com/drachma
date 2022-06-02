@@ -32,7 +32,7 @@ def route_visualize():
 @tres_bp.route('/report')
 def route_report():
     """
-    
+    Return Markdown string to be formatted as a table of users and corresponding balances
 
     Returns:
         Response: Response to send back
