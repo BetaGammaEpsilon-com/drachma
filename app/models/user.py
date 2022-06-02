@@ -49,3 +49,14 @@ class User():
         col_sql = ', '.join(self.cols)
         val_sql = f"'{self.name}', {self.balance}"
         return col_sql, val_sql
+
+    def markdownify(self):
+        """
+        Turns the given Entry into a formatted Markdown string to be added to a table
+
+        Returns:
+            string: The formatted Markdown string
+        """
+
+        md = f'| {self.name} | {self.balance} |'
+        return md
