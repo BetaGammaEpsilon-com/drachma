@@ -24,6 +24,20 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 
 #### Endpoints written in `/app/routes/user.py`
 
+`POST /user`
+
+Request Body:
+```json
+{
+    'name': <string>,
+    'balance': <float>
+}
+```
+
+Adds a User to the `users` table.
+
+<hr />
+
 `GET /user/<uid>`
 
 Displays all listed transactions of the user, separated by verification status.
@@ -34,7 +48,7 @@ Displays all listed transactions of the user, separated by verification status.
 
 Request Body:
 
-```
+```json
 {
     'price': <float>,
     'motion': <string>,
@@ -70,9 +84,9 @@ Separate page where the treasurer report (given current information) can be save
 
 Request Body:
 
-```
+```json
 {
-    'uid': <uid>,
+    'uid': <uid integer>,
     'price': <float>,
     'status': 1,
     'motion': <string>,
@@ -94,10 +108,10 @@ Returns information about the given transaction
 
 Request Body:
 
-```
+```json
 {
-    'txid': <txid>
-    'uid': <uid>,
+    'txid': <txid integer>
+    'uid': <uid integer>,
     'price': <float>,
     'status': 1,
     'motion': <string>,
