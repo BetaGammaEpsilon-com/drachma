@@ -63,7 +63,18 @@ def get_tx_by_txid(txid):
     pass
 
 def user_exists(uid):
-    pass
+    """
+    Determines whether a User exists in the users table
+
+    Args:
+        uid (int): UID of the User to check
+
+    Returns:
+        boolean: Whether or not the User exists in the users table
+    """
+    where = f"uid = {uid}"
+    res = select('users', where=where)
+    return len(res) > 0
 
 def tx_exists(txid):
     """
@@ -77,4 +88,18 @@ def tx_exists(txid):
     """
     where = f'txid = {txid}'
     res = select('tx', where=where) + select('tx_unverified', where=where)
+    return len(res) > 0
+
+def motion_exists(motion_name):
+    """
+    Determines whether a motion exists in the motions table
+
+    Args:
+        motion_name (str): name of the motion to check
+
+    Returns:
+        boolean: Whether or not the motion exists in the motions table
+    """
+    where = f"motion = '{motion_name}'"
+    res = select('motions', where=where)
     return len(res) > 0

@@ -183,3 +183,18 @@ def sum_col(tbl, col):
     if len(res) == 0:
         res = 0
     return res
+
+def insert_motion(motion):
+    """
+    Inserts into the motions table
+
+    Args:
+        motion (str): the new motion
+    """
+    conn = create_connection()
+    cursor = conn.cursor()
+    
+    sql = f"INSERT INTO motions VALUES ('{motion}', CURRENT_TIMESTAMP);"
+
+    cursor.execute(sql)
+    conn.close()

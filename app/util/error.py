@@ -16,3 +16,8 @@ def not_found_error(msg):
     return {
         'error': f'ID NOT FOUND: {msg}'
     }
+
+def generic_error(msg):
+    return {
+        'error': {msg}
+    }
