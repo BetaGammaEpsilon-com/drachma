@@ -25,7 +25,8 @@ def logic_tres_get_all():
 def logic_tres_get_report():
     """
     Pulls users from database and generates Markdown string to be displayed by the frontend
-    Return:
+    
+    Returns:
         dict: type = report and report = formatted Markdown string to create table
     """
     users = logic_get_users()

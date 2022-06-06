@@ -107,7 +107,7 @@ Separate page where the treasurer report (given current information) can be save
 
 <hr />
 
-_`POST /tres/tx`_
+`POST /tres/tx`
 
 Sample Request Body:
 
@@ -115,7 +115,6 @@ Sample Request Body:
 {
     "uid": 0,         // (int) UID of the User
     "price": 0.0,     // (float) price of the Transaction
-    "status": 1,      // (int) verification status: 1 is verified, 0 is unverified (Treasurer transactions are automatically verified)
     "motion": "",     // (str, optional) the motion this Transaction is under
     "description": "" // (str, optional) a description of this Transaction
 }
@@ -151,11 +150,11 @@ Deletes transaction `txid` from verified or unverified table, whichever it exist
 
 <hr />
 
-_`GET /tres/motion`_
+`GET /tres/motion`
 
 Returns all available motions.
 
-_`POST /tres/motion`_
+`POST /tres/motion`
 
 Adds a motion.
 
@@ -166,7 +165,7 @@ Sample Request Body:
 }
 ```
 
-_`DELETE /tres/motion`_
+`DELETE /tres/motion`
 
 Deletes a motion.
 

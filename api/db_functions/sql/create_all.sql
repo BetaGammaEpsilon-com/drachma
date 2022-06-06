@@ -9,16 +9,16 @@ CREATE TABLE IF NOT EXISTS tx_unverified (
     uid integer NOT NULL,
     tx_date datetime NOT NULL,
     price float NOT NULL,
-    motion text,
+    motion text NOT NULL,
     description text
 );
 
 CREATE TABLE IF NOT EXISTS tx (
-    txid integer PRIMARY KEY AUTOINCREMENT,
+    txid integer PRIMARY KEY,
     uid integer NOT NULL,
     tx_date datetime NOT NULL,
     price float NOT NULL,
-    motion text,
+    motion text NOT NULL,
     description text
 );
 

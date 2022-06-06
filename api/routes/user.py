@@ -1,10 +1,9 @@
 from flask import Blueprint, redirect, request
-from flask.json import loads
+from sqlite3 import IntegrityError
 
 from api.logic.select import *
-from api.db_functions.db_operations import *
-
-from api.logic.user import logic_get_user_info, logic_user_add_tx, logic_create_user
+from api.logic.user import logic_get_user_info, logic_create_user
+from api.logic.transaction import logic_add_tx
 from api.util.response import format_json
 from api.util.error import bad_request_error
 
@@ -12,7 +11,7 @@ URL_PREFIX = '/user'
 user_bp = Blueprint('user', __name__, url_prefix=URL_PREFIX)
 
 @user_bp.route('', methods=['POST'])
-def route_user_creation():
+def route_user_create_user():
     """
     Creates a User
 
@@ -23,7 +22,7 @@ def route_user_creation():
         return format_json(logic_create_user(request))
     except KeyError:
         return format_json(bad_request_error('Error in creating new user -- request must include `name` and `balance` fields.'), status=400)
-    except sqlite3.IntegrityError:
+    except IntegrityError:
         return format_json(bad_request_error('`name` parameter must be unique.'), status=403)
 
 @user_bp.route('/<int:uid>')
@@ -46,10 +45,10 @@ def route_user_add_tx(uid):
         uid (int): The UID of the User to add the transaction to.
     """
     try:
-        return format_json(logic_user_add_tx(uid, request))
+        return format_json(logic_add_tx(request, uid=uid))
     except KeyError:
         # one of the parameters wasn't passed: send Bad Request 400
-        return format_json(bad_request_error(f'POST to /user/{uid}/tx did not contain necessary headers: price, motion, description'), status=400)
+        return format_json(bad_request_error(f'POST to /user/{uid}/tx did not contain necessary fields: `price`, `motion`, `description`'), status=400)
 
 # robert-chatterton: TODO - this might be useless as is. Might keep to simply return UID?
 @user_bp.route('/<string:name>') 

@@ -1,6 +1,6 @@
 import sqlite3
 
-SQL_FOLDER = 'app/db_functions/sql/'
+SQL_FOLDER = 'api/db_functions/sql/'
 DATABASE_PATH = 'resources/drachma.db'
 
 def create_connection():
