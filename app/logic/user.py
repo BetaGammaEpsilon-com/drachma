@@ -1,9 +1,9 @@
 from flask.json import loads
 
-from app.logic.select import get_user_by_uid, get_transactions_by_uid
+from app.logic.select import get_user_by_uid, get_transactions_by_uid, create_user_from_sqlresponse
 from app.models.transaction import Transaction
 from app.models.user import User
-from app.db_functions.db_operations import insert
+from app.db_functions.db_operations import insert, select
 
 def logic_get_user_info(uid):
     """
@@ -47,7 +47,6 @@ def logic_create_user(req):
         req (Flask.Request): The request from the frontend.
     """
     req_body = loads(req.data)
-    print(req_body)
     name = req_body['name']
     balance = req_body['balance']
 
@@ -55,3 +54,13 @@ def logic_create_user(req):
 
     insert('users', new_user)
     return {'message': f'New user created successfully.'}
+
+def logic_get_users():
+    """
+    Grabs the list of all Users in the 
+
+    Returns:
+        list: List of serialized Users
+    """    
+    res = select('users')
+    return [create_user_from_sqlresponse(tup) for tup in res]
