@@ -22,9 +22,9 @@ def route_user_creation():
     try:
         return format_json(logic_create_user(request))
     except KeyError:
-        return bad_request_error('Error in creating new user -- must include `name` and `balance` fields.')
+        return format_json(bad_request_error('Error in creating new user -- request must include `name` and `balance` fields.'), status=400)
     except sqlite3.IntegrityError:
-        return bad_request_error('`name` parameter must be unique.')
+        return format_json(bad_request_error('`name` parameter must be unique.'), status=403)
 
 @user_bp.route('/<int:uid>')
 def route_user_info(uid):
