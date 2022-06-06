@@ -26,15 +26,32 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 
 `POST /user`
 
-Request Body:
+Adds a User to the `users` table.
+
+Sample Request Body:
 ```json
 {
-    'name': <string>,
-    'balance': <float>
+    "name": "string", // (str) The User's unique name
+    "balance": 0.0    // (float) the User's balance
 }
 ```
 
-Adds a User to the `users` table.
+Sample Responses:
+
+On succesful User Creation `STATUS CODE: 200`
+```json
+{ "message": "New user created successfully." }
+```
+
+On invalid request `STATUS CODE: 400`
+```json
+{ "error": "BAD REQUEST: Error in creating new user -- request must include `name` and `balance` fields." }
+```
+
+On insertion error `STATUS CODE: 403`
+```json
+{ "error": "BAD REQUEST: `name` parameter must be unique." }
+```
 
 <hr />
 
@@ -50,9 +67,9 @@ Request Body:
 
 ```json
 {
-    'price': <float>,
-    'motion': <string>,
-    'description': <string>
+    "price": 0.0,     // (float) price of the Transaction
+    "motion": "",     // (str, optional) the motion this Transaction is under
+    "description": "" // (str, optional) a description of this Transaction
 }
 ```
 
@@ -82,15 +99,15 @@ Separate page where the treasurer report (given current information) can be save
 
 `POST /tres/tx`
 
-Request Body:
+Sample Request Body:
 
 ```json
 {
-    'uid': <uid integer>,
-    'price': <float>,
-    'status': 1,
-    'motion': <string>,
-    'description': <string>
+    "uid": 0,         // (int) UID of the User
+    "price": 0.0,     // (float) price of the Transaction
+    "status": 1,      // (int) verification status: 1 is verified, 0 is unverified (Treasurer transactions are automatically verified)
+    "motion": "",     // (str, optional) the motion this Transaction is under
+    "description": "" // (str, optional) a description of this Transaction
 }
 ```
 
@@ -106,16 +123,15 @@ Returns information about the given transaction
 
 `PUT /tres/tx/<txid>`
 
-Request Body:
+Sample Request Body:
 
 ```json
 {
-    'txid': <txid integer>
-    'uid': <uid integer>,
-    'price': <float>,
-    'status': 1,
-    'motion': <string>,
-    'description': <string>
+    "uid": 0,         // (int) UID of the User
+    "price": 0.0,     // (float) price of the Transaction
+    "status": 1,      // (int) verification status: 1 is verified, 0 is unverified (new Treasurer transactions are automatically verified)
+    "motion": "",     // (str, optional) the motion this Transaction is under
+    "description": "" // (str, optional) a description of this Transaction
 }
 ```
 
