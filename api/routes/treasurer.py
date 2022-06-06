@@ -1,10 +1,10 @@
 from flask import Blueprint, request
 
-from app.logic.select import motion_exists, tx_exists
-from app.logic.treasurer import logic_tres_get_all, logic_tres_get_report
-from app.logic.motions import logic_motions_get_all, logic_motions_create_motion, logic_motions_delete_motion
-from app.util.response import format_json
-from app.util.error import generic_error, not_found_error, bad_request_error
+from api.logic.select import motion_exists, tx_exists
+from api.logic.treasurer import logic_tres_get_all, logic_tres_get_report
+from api.logic.motions import logic_motions_get_all, logic_motions_create_motion, logic_motions_delete_motion
+from api.util.response import format_json
+from api.util.error import generic_error, not_found_error, bad_request_error
 
 URL_PREFIX = '/tres'
 tres_bp = Blueprint('tres', __name__, url_prefix=URL_PREFIX)

@@ -4,4 +4,6 @@
 
 [Endpoints](endpoints.md)
 
+[Database Tables](database.md)
+
 [Git Practices](git.md)

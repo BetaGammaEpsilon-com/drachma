@@ -1,6 +1,6 @@
 import traceback
-from app.models.transaction import Transaction
-from app.models.user import User
+from api.models.transaction import Transaction
+from api.models.user import User
 
 def test_models():
     try:

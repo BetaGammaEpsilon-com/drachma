@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from app.models.user import User
-from app.models.transaction import Transaction
+from api.models.user import User
+from api.models.transaction import Transaction
 
 def create_user_from_sqlresponse(sqlres):
     """

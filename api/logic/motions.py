@@ -1,7 +1,7 @@
 from flask.json import loads
 
-from app.db_functions.db_operations import select, insert_motion, delete
-from app.logic.select import motion_exists
+from api.db_functions.db_operations import select, insert_motion, delete
+from api.logic.select import motion_exists
 
 def logic_motions_get_all():
     motions = select('motions')

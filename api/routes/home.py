@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from app.util.response import format_json
+from api.util.response import format_json
 
 URL_PREFIX = ''
 home_bp = Blueprint('home', __name__, url_prefix='')

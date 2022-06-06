@@ -1,12 +1,12 @@
 from flask import Blueprint, redirect, request
 from flask.json import loads
 
-from app.logic.select import *
-from app.db_functions.db_operations import *
+from api.logic.select import *
+from api.db_functions.db_operations import *
 
-from app.logic.user import logic_get_user_info, logic_user_add_tx, logic_create_user
-from app.util.response import format_json
-from app.util.error import bad_request_error
+from api.logic.user import logic_get_user_info, logic_user_add_tx, logic_create_user
+from api.util.response import format_json
+from api.util.error import bad_request_error
 
 URL_PREFIX = '/user'
 user_bp = Blueprint('user', __name__, url_prefix=URL_PREFIX)

@@ -1,6 +1,6 @@
-from app.db_functions.db_operations import select, run_script, sum_col
-from app.util.model_factory import create_tx_from_sqlresponse
-from app.logic.user import logic_get_users
+from api.db_functions.db_operations import select, run_script, sum_col
+from api.util.model_factory import create_tx_from_sqlresponse
+from api.logic.user import logic_get_users
 
 def logic_tres_get_all():
     """
