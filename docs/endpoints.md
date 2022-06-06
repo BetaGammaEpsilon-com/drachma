@@ -3,11 +3,13 @@
 [Postman](https://www.postman.com/aviation-pilot-81500845/workspace/drachma/overview)
 
 
-Guide for endpoints and their logic. In a change to an endpoint _UPDATE THIS FILE BEFORE COMMIT_.
+Guide for endpoints and their logic. In a change to an endpoint **UPDATE THIS FILE BEFORE COMMIT**. _Italicized_ routes have not been implemented at all yet.
 
 ## Home and Tests
 
 #### Endpoints written in `/app/routes/home.py`
+
+<hr />
 
 `GET /`
 
@@ -23,6 +25,12 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 ## Users
 
 #### Endpoints written in `/app/routes/user.py`
+
+<hr />
+
+_`GET /user`_
+
+Gets a list of all Users.
 
 `POST /user`
 
@@ -79,13 +87,15 @@ Adds a transaction to the unverified table from `uid` for the treasurer to view.
 
 #### Endpoints written in `/app/routes/treasurer.py`
 
+<hr />
+
 `GET /tres`
 
 Returns all transactions for the treasurer to see, totals for each verification and overall. (_TODO_ more metrics)
 
 <hr />
 
-`GET /tres/visualize`
+_`GET /tres/visualize`_
 
 Creates spending visualizations.
 
@@ -97,7 +107,7 @@ Separate page where the treasurer report (given current information) can be save
 
 <hr />
 
-`POST /tres/tx`
+_`POST /tres/tx`_
 
 Sample Request Body:
 
@@ -115,13 +125,11 @@ Adds a transaction to the verified table given a `uid`.
 
 <hr />
 
-`GET /tres/tx/<txid>`
+_`GET /tres/tx/<txid>`_
 
 Returns information about the given transaction
 
-<hr />
-
-`PUT /tres/tx/<txid>`
+_`PUT /tres/tx/<txid>`_
 
 Sample Request Body:
 
@@ -137,14 +145,42 @@ Sample Request Body:
 
 Updates transaction `txid` to have the given parameters. On update of any parameters other than `status`, `tx_date` changed to datetime of update. Mainly used for status changes alone.
 
-<hr />
-
-`DELETE /tres/tx/<txid>`
+_`DELETE /tres/tx/<txid>`_
 
 Deletes transaction `txid` from verified or unverified table, whichever it exists on.
 
 <hr />
 
+_`GET /tres/motion`_
+
+Returns all available motions.
+
+_`POST /tres/motion`_
+
+Adds a motion.
+
+Sample Request Body:
+```json
+{
+    "motion": "eboard"
+}
+```
+
+_`DELETE /tres/motion`_
+
+Deletes a motion.
+
+Sample Request Body:
+```json
+{
+    "motion": "eboard"
+}
+```
+
+<hr />
+
 ## Login
+
+<hr />
 
 _TODO_
