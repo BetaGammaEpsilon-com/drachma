@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from api.logic.select import tx_exists
-from api.logic.treasurer import logic_tres_get_all, logic_tres_get_report
+from api.logic.treasurer import logic_tres_delete_tx, logic_tres_get_all, logic_tres_get_report, logic_tres_get_tx, logic_tres_modify_tx
 from api.logic.motions import logic_motions_get_all, logic_motions_create_motion, logic_motions_delete_motion
 from api.logic.transaction import logic_add_tx
 
@@ -53,7 +53,6 @@ def route_update_tx(txid):
     On `GET`: returns information about Transaction txid
     On `PUT`: updates Transaction to have given values
     On `DELETE`: deletes Transaction
-    TODO
 
     Args:
         txid (int): Transaction txid in database
@@ -66,15 +65,15 @@ def route_update_tx(txid):
     
     if request.method == 'GET':
         # get Transaction info
-        res = ''
+        res = logic_tres_get_tx(txid)
     
     elif request.method == 'PUT':
         # update Transaction
-        res = ''
+        res = logic_tres_modify_tx(txid, request)
     
     elif request.method == 'DELETE':
         # delete Transaction
-        res = ''
+        res = logic_tres_delete_tx(txid)
         
     return format_json(res)
 

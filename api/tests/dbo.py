@@ -16,8 +16,8 @@ def test_dbo():
         assert not table_exists(conn, 'failure')
         
         # attempt to insert
-        u1 = User(uuid.uuid4())
-        ut1 = Transaction(1, 10, 0, 'Test Motion', 'Unverified by Treasurer')
+        u1 = User('House')
+        ut1 = Transaction(0, 10, 0, motion='house', description='pape towe')
         
         insert('users', u1)
         insert('tx_unverified', ut1)
