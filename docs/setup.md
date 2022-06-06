@@ -12,7 +12,7 @@
 
 5. Install necessary packages:
 
-&nbsp;&nbsp;&nbsp;&nbsp;```conda install -r requirements.txt```
+&nbsp;&nbsp;&nbsp;&nbsp;```conda install --file requirements.txt```
 
 6. Set up the program databases and tables:
 

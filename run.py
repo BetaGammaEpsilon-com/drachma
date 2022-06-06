@@ -4,7 +4,7 @@ RUN THIS FILE TO START UP BACKEND SERVER
 import os
 import argparse
 
-from app import app
+from api import app
 
 parser = argparse.ArgumentParser()
 

@@ -1,7 +1,9 @@
-# Drachma
+# Drachma Backend
 #### BGE Treasurer app
 
-*[Documentation Links](/docs/README.md)*
+**[Documentation Links](/docs/README.md)**
+
+**[Frontend Repository](https://github.com/BetaGammaEpsilon-com/drachma-frontend)**
 
 ## Features
 - Tracking of money for the entire Fraternity, member by member
@@ -41,15 +43,7 @@ Modules:
 - [SQLite3](https://www.sqlite.org/index.html) (database)
 - [Pandas](https://pandas.pydata.org/) (when extracting from DB)
 - [Matplotlib](https://matplotlib.org/) and [Seaborn](https://seaborn.pydata.org/) (data visualization)
-- TODO: Report compilation
 - [Pandoc](https://pandoc.org/) (backend documentation)
-
-### Frontend
-TODO
-
-- Look into Python frontend libraries
-- React
-- Go ?
 
 ### General
 Issue tracking: Github Issues

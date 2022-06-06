@@ -1,9 +1,9 @@
 from flask.json import loads
 
-from app.logic.select import get_user_by_uid, get_transactions_by_uid, create_user_from_sqlresponse
-from app.models.transaction import Transaction
-from app.models.user import User
-from app.db_functions.db_operations import insert, select
+from api.logic.select import get_user_by_uid, get_transactions_by_uid, create_user_from_sqlresponse
+from api.models.transaction import Transaction
+from api.models.user import User
+from api.db_functions.db_operations import insert, select
 
 def logic_get_user_info(uid):
     """

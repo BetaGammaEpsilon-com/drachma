@@ -1,6 +1,6 @@
-from app.models import *
-from app.db_functions.db_operations import select
-from app.util.model_factory import *
+from api.models import *
+from api.db_functions.db_operations import select
+from api.util.model_factory import *
 
 def get_user_by_uid(uid):
     """
