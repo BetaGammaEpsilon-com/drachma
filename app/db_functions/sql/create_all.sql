@@ -21,3 +21,11 @@ CREATE TABLE IF NOT EXISTS tx (
     motion text,
     description text
 );
+
+CREATE TABLE IF NOT EXISTS motions (
+    motion text PRIMARY KEY,
+    init_date datetime
+);
+
+INSERT INTO motions VALUES ('house', CURRENT_TIMESTAMP);
+INSERT INTO motions VALUES ('eboard', CURRENT_TIMESTAMP);
