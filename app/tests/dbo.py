@@ -18,11 +18,9 @@ def test_dbo():
         # attempt to insert
         u1 = User(uuid.uuid4())
         ut1 = Transaction(1, 10, 0, 'Test Motion', 'Unverified by Treasurer')
-        vt1 = Transaction(1, 10, 1, 'Test Motion', 'Verified by Treasurer')
         
         insert('users', u1)
         insert('tx_unverified', ut1)
-        insert('tx', vt1)
     
     except:
         exit(f'DBO test failed:\n{traceback.format_exc()}')
