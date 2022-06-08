@@ -63,7 +63,7 @@ def logic_get_users():
         list: List of serialized Users
     """    
     res = select('users')
-    return [create_user_from_sqlresponse(tup) for tup in res]
+    return [create_user_from_sqlresponse(tup).serialize() for tup in res]
 
 def update_balance(uid):
     # get all verified transactions

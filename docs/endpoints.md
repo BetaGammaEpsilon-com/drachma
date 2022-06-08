@@ -28,7 +28,7 @@ Testing endpoint. Should return current release verison of Drachma in body (ex. 
 
 <hr />
 
-_`GET /user`_
+`GET /user`
 
 Gets a list of all Users.
 
