@@ -1,5 +1,6 @@
 """
 RUN THIS FILE TO SETUP RESOURCES FOR BACKEND
+cum - matteo
 """
 import os
 from api.db_functions import db_setup

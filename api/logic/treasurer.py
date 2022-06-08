@@ -1,6 +1,10 @@
-from api.db_functions.db_operations import select, run_script, sum_col
-from api.util.model_factory import create_tx_from_sqlresponse
-from api.logic.user import logic_get_users
+from flask.json import loads
+
+from api.db_functions.db_operations import update, delete
+from api.logic.user import logic_get_users, update_balance
+from api.logic.select import get_txs, get_totals, get_tx_by_txid, motion_exists
+from api.logic.transaction import verify_tx
+from api.models.txstatus import TxStatus
 
 def logic_tres_get_all():
     """
@@ -10,8 +14,8 @@ def logic_tres_get_all():
     Returns:
         Response: Response to send back
     """
-    v_tx, u_tx = _get_tx()
-    v_tot, u_tot, tot = _get_totals()
+    v_tx, u_tx = get_txs()
+    v_tot, u_tot, tot = get_totals()
     users = [u.serialize() for u in logic_get_users()]
     return {
         'verified_tx': v_tx,
@@ -25,7 +29,8 @@ def logic_tres_get_all():
 def logic_tres_get_report():
     """
     Pulls users from database and generates Markdown string to be displayed by the frontend
-    Return:
+    
+    Returns:
         dict: type = report and report = formatted Markdown string to create table
     """
     users = logic_get_users()
@@ -39,33 +44,71 @@ def logic_tres_get_report():
         'report': report
     }
     
-def _get_tx():
+def logic_tres_get_tx(txid):
     """
-    Grabs the full list of Transactions from verified/unverified tables
+    Gets the Transaction associated with the TXID given.
+
+    Args:
+        txid (int): The TXID of the Transaction to look up
 
     Returns:
-        list: Verified Transactions
-        list: Unverified Transactions
+        dict: The unserialized Response
     """    
-    vres = select('tx')
-    ures = select('tx_unverified')
-    
-    verified = [create_tx_from_sqlresponse(tup, 1).serialize() for tup in vres]
-    unverified = [create_tx_from_sqlresponse(tup, 0).serialize() for tup in ures]
-    
-    return verified, unverified
+    tx = get_tx_by_txid(txid)
+    return {
+        'transaction': tx.serialize()
+    }
 
-def _get_totals():
+def logic_tres_modify_tx(txid, req):
+
+    change_date = False
+    tx = get_tx_by_txid(txid)
+    pre_status = tx.status
+    tx = tx.serialize()
+    req_body = loads(req.data)
+
+    # grab vars from request
+    uid = req_body['uid']
+    price = req_body['price']
+    motion = req_body['motion']
+    description = req_body['description']
+    status = req_body['status']
+
+    if not motion_exists(motion):
+        raise IndexError
+
+    # if anything changes, update tx_date
+    if tx['uid'] != uid or tx['price'] != price or tx['motion'] != motion or tx['description'] != description:
+        change_date = True
+
+    # make update
+    table = 'tx' if pre_status == 1 else 'tx_unverified'
+    if change_date:
+        set_sql = f"uid={uid}, tx_date=CURRENT_TIMESTAMP, price={price}, motion='{motion}', description='{description}'"
+    else:
+        set_sql = f"uid={uid}, tx_date='{tx['tx_date']}', price={price}, motion='{motion}', description='{description}'"
+    where_sql = f'txid={txid}'
+    update(table, set_sql, where_sql)
+
+    # verify transaction
+    if pre_status == TxStatus.UNVERIFIED and status == 1:
+        verify_tx(txid)
+
+    return {'message': f'Transaction {txid} successfully modified.'}
+
+def logic_tres_delete_tx(txid):
     """
-    Calculates totals for each table.
+    Deletes a Transaction at the given TXID.
+
+    Args:
+        txid (int): The Transaction TXID
 
     Returns:
-        int: Total from Verified table
-        int: Total from Unverified table
-        int: Total from both tables
+        dict: Response
     """
-    verified_total = sum_col('tx', 'price')[0]
-    unverified_total = sum_col('tx_unverified', 'price')[0]
-    total = verified_total + unverified_total
+    tx = get_tx_by_txid(txid)
+    delete('tx_unverified', f'txid={txid}')
+    delete('tx', f'txid={txid}')
+    update_balance(tx.uid)
     
-    return verified_total, unverified_total, total
+    return {'message': f'Transaction {txid} successfully deleted.'}

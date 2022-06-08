@@ -44,6 +44,9 @@ class Transaction():
             'motion',
             'description'
         ]
+
+        if self.txid:
+            self.cols.insert(0, 'txid')
         
     def __str__(self):
         return f'<Transaction: UID: {self.uid}, PRICE: {self.price}, VERIFICATION: {self.status}>'
@@ -73,7 +76,16 @@ class Transaction():
             string: The SQL values insert formatted string
         """        
         col_sql = ', '.join(self.cols)
-        val_sql = f"{self.uid}, datetime('now'), {self.price}, "
+        if self.txid:
+            val_sql = f'{self.txid}, '
+        else:
+            val_sql = ''
+        val_sql += f'{self.uid}, '
+        if self.tx_date:
+            val_sql += f"'{self.tx_date}', "
+        else:
+            val_sql += "datetime('now'), "
+        val_sql += f'{self.price}, '
         if not self.motion == 'NULL':
             val_sql += f"'{self.motion}', "
         else:
@@ -83,3 +95,7 @@ class Transaction():
         else:
             val_sql += f'NULL'
         return col_sql, val_sql
+
+    def verify(self):
+        self.status = TxStatus.VERIFIED
+        self.tbl = 'tx'

@@ -1,6 +1,6 @@
 import sqlite3
 
-SQL_FOLDER = 'app/db_functions/sql/'
+SQL_FOLDER = 'api/db_functions/sql/'
 DATABASE_PATH = 'resources/drachma.db'
 
 def create_connection():
@@ -132,8 +132,8 @@ def select(tbl, where=None, cols=[]):
                 {tbl}'''
     
     if where:
-        sql += f'WHERE {where};'
-        
+        sql += f' WHERE {where};'
+    print(sql)
     cursor.execute(sql)
     res = cursor.fetchall()
     conn.close()

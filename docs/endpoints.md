@@ -39,12 +39,15 @@ Adds a User to the `users` table.
 Sample Request Body:
 ```json
 {
-    "name": "string", // (str) The User's unique name
-    "balance": 0.0    // (float) the User's balance
+    "name": "string",
+    "balance": 0.0
 }
 ```
+`name (str):` The User's unique name
 
-Sample Responses:
+`balance (float):` the User's initial balance
+
+**Sample Responses:**
 
 On succesful User Creation `STATUS CODE: 200`
 ```json
@@ -75,13 +78,18 @@ Request Body:
 
 ```json
 {
-    "price": 0.0,     // (float) price of the Transaction
-    "motion": "",     // (str, optional) the motion this Transaction is under
-    "description": "" // (str, optional) a description of this Transaction
+    "price": 0.0, 
+    "motion": "",
+    "description": ""
 }
 ```
+`price (float):` price of the Transaction
 
-Adds a transaction to the unverified table from `uid` for the treasurer to view.
+`motion (str):` the motion this Transaction is under. Motion must already exist
+
+`description (str):` a description of this Transaction
+
+Adds a transaction to the unverified table from `uid` for the treasurer to view/verify.
 
 ## Treasurer
 
@@ -107,55 +115,70 @@ Separate page where the treasurer report (given current information) can be save
 
 <hr />
 
-_`POST /tres/tx`_
+`POST /tres/tx`
 
-Sample Request Body:
+**Sample Request Body:**
 
 ```json
 {
-    "uid": 0,         // (int) UID of the User
-    "price": 0.0,     // (float) price of the Transaction
-    "status": 1,      // (int) verification status: 1 is verified, 0 is unverified (Treasurer transactions are automatically verified)
-    "motion": "",     // (str, optional) the motion this Transaction is under
-    "description": "" // (str, optional) a description of this Transaction
+    "uid": 1,
+    "price": 0.0,
+    "motion": "",
+    "description": ""
 }
 ```
+`uid (int)`: UID of the User
+
+`price (float)`: price of the Transaction 
+
+`motion (str)`: the motion this Transaction is under. Motion must be created beforehand
+
+`description (str)`: a description of this Transaction
 
 Adds a transaction to the verified table given a `uid`.
 
 <hr />
 
-_`GET /tres/tx/<txid>`_
+`GET /tres/tx/<txid>`
 
 Returns information about the given transaction
 
-_`PUT /tres/tx/<txid>`_
+`PUT /tres/tx/<txid>`
 
 Sample Request Body:
 
 ```json
 {
-    "uid": 0,         // (int) UID of the User
-    "price": 0.0,     // (float) price of the Transaction
-    "status": 1,      // (int) verification status: 1 is verified, 0 is unverified (new Treasurer transactions are automatically verified)
-    "motion": "",     // (str, optional) the motion this Transaction is under
-    "description": "" // (str, optional) a description of this Transaction
+    "uid": 0,
+    "price": 0.0,
+    "status": 1,
+    "motion": "",
+    "description": ""
 }
 ```
+`uid (int)`: UID of the User
+
+`price (float)`: price of the Transaction 
+
+`status (int)` verification status: 1 is verified, 0 is unverified (new Treasurer transactions are automatically verified)
+
+`motion (str)`: the motion this Transaction is under. Motion must be created beforehand
+
+`description (str)`: a description of this Transaction
 
 Updates transaction `txid` to have the given parameters. On update of any parameters other than `status`, `tx_date` changed to datetime of update. Mainly used for status changes alone.
 
-_`DELETE /tres/tx/<txid>`_
+`DELETE /tres/tx/<txid>`
 
 Deletes transaction `txid` from verified or unverified table, whichever it exists on.
 
 <hr />
 
-_`GET /tres/motion`_
+`GET /tres/motion`
 
 Returns all available motions.
 
-_`POST /tres/motion`_
+`POST /tres/motion`
 
 Adds a motion.
 
@@ -166,7 +189,7 @@ Sample Request Body:
 }
 ```
 
-_`DELETE /tres/motion`_
+`DELETE /tres/motion`
 
 Deletes a motion.
 

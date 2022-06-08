@@ -1,5 +1,5 @@
 from api.models import *
-from api.db_functions.db_operations import select
+from api.db_functions.db_operations import select, sum_col
 from api.util.model_factory import *
 
 def get_user_by_uid(uid):
@@ -60,7 +60,62 @@ def get_transactions_by_uid(uid):
     }
 
 def get_tx_by_txid(txid):
-    pass
+    """
+    Gets a serialized Transaction from whatever table has it
+
+    Args:
+        txid (int): The TXID of the transaction
+
+    Returns:
+        Transaction
+    """
+    where = f'txid = {txid}'
+    verified = select('tx', where=where)
+    unverified = select('tx_unverified', where=where)
+    
+    # convert to Transaction objects
+    if len(verified) > 0:
+        tx = [create_tx_from_sqlresponse(sqlrow, 1) for sqlrow in verified][0]
+    elif len(unverified) > 0:
+        tx = [create_tx_from_sqlresponse(sqlrow, 0) for sqlrow in unverified][0]
+    else:
+        raise IndexError
+    return tx
+
+def get_txs():
+    """
+    Grabs the full list of Transactions from verified/unverified tables
+
+    Returns:
+        list: Verified Transactions
+        list: Unverified Transactions
+    """    
+    vres = select('tx')
+    ures = select('tx_unverified')
+    
+    verified = [create_tx_from_sqlresponse(tup, 1).serialize() for tup in vres]
+    unverified = [create_tx_from_sqlresponse(tup, 0).serialize() for tup in ures]
+    
+    return verified, unverified
+
+def get_totals():
+    """
+    Calculates totals for each table.
+
+    Returns:
+        int: Total from Verified table
+        int: Total from Unverified table
+        int: Total from both tables
+    """
+    verified_total = sum_col('tx', 'price')[0]
+    if verified_total is None:
+        verified_total = 0.0
+    unverified_total = sum_col('tx_unverified', 'price')[0]
+    if unverified_total is None:
+        unverified_total = 0.0
+    total = verified_total + unverified_total
+    
+    return verified_total, unverified_total, total
 
 def user_exists(uid):
     """
@@ -100,6 +155,6 @@ def motion_exists(motion_name):
     Returns:
         boolean: Whether or not the motion exists in the motions table
     """
-    where = f"motion = '{motion_name}'"
+    where = f"motion='{motion_name}'"
     res = select('motions', where=where)
     return len(res) > 0
