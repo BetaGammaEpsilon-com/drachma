@@ -67,12 +67,11 @@ def get_tx_by_txid(txid):
         txid (int): The TXID of the transaction
 
     Returns:
-        dict: serialized Transaction
+        Transaction
     """
     where = f'txid = {txid}'
     verified = select('tx', where=where)
     unverified = select('tx_unverified', where=where)
-    print(verified, unverified)
     
     # convert to Transaction objects
     if len(verified) > 0:

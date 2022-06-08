@@ -1,9 +1,9 @@
 from flask.json import loads
 
-from api.logic.select import motion_exists
-from api.logic.treasurer import verify_tx
+from api.logic.select import motion_exists, get_tx_by_txid
+from api.logic.user import update_balance
 from api.models.transaction import Transaction
-from api.db_functions.db_operations import insert, select
+from api.db_functions.db_operations import delete, insert, select
 from api.util.model_factory import create_tx_from_sqlresponse
 
 def logic_add_tx(req, uid=None, verified=False):
@@ -42,4 +42,27 @@ def logic_add_tx(req, uid=None, verified=False):
         res = {'message': f'{tx} added by Treasurer'}
 
     return res
+
+def verify_tx(txid):
+    """
+    Verifies a given Transaction
+
+    Args:
+        txid (int): TXID of Transaction to verify
+        
+    Raises:
+        IndexError: If txid is not in tx_unverified
+    """    
+    # insert new row
+    tx = get_tx_by_txid(txid)
+    tx.verify()
+    insert('tx', tx)
+
+    # edit new balance of user
+    update_balance(tx.uid)
     
+    # delete old row
+    where = f'txid={txid}'
+    delete('tx_unverified', where)
+
+    print(f'Transaction {txid} verified.')

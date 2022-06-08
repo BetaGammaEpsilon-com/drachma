@@ -1,8 +1,9 @@
 from flask.json import loads
 
-from api.db_functions.db_operations import update, insert, delete
+from api.db_functions.db_operations import update, delete
 from api.logic.user import logic_get_users, update_balance
 from api.logic.select import get_txs, get_totals, get_tx_by_txid, motion_exists
+from api.logic.transaction import verify_tx
 from api.models.txstatus import TxStatus
 
 def logic_tres_get_all():
@@ -66,7 +67,7 @@ def logic_tres_modify_tx(txid, req):
     tx = tx.serialize()
     req_body = loads(req.data)
 
-    # change vars
+    # grab vars from request
     uid = req_body['uid']
     price = req_body['price']
     motion = req_body['motion']
@@ -76,6 +77,7 @@ def logic_tres_modify_tx(txid, req):
     if not motion_exists(motion):
         raise IndexError
 
+    # if anything changes, update tx_date
     if tx['uid'] != uid or tx['price'] != price or tx['motion'] != motion or tx['description'] != description:
         change_date = True
 
@@ -89,7 +91,6 @@ def logic_tres_modify_tx(txid, req):
     update(table, set_sql, where_sql)
 
     # verify transaction
-    print(pre_status, status)
     if pre_status == TxStatus.UNVERIFIED and status == 1:
         verify_tx(txid)
 
@@ -105,22 +106,9 @@ def logic_tres_delete_tx(txid):
     Returns:
         dict: Response
     """
+    tx = get_tx_by_txid(txid)
     delete('tx_unverified', f'txid={txid}')
     delete('tx', f'txid={txid}')
-    
-    return {'message': f'Transaction {txid} successfully deleted.'}
-
-def verify_tx(txid):
-    # insert new row
-    tx = get_tx_by_txid(txid)
-    tx.verify()
-    insert('tx', tx)
-
-    # edit new balance of user
     update_balance(tx.uid)
     
-    # delete old row
-    where = f'txid={txid}'
-    delete('tx_unverified', where)
-
-    print(f'Transaction {txid} verified.')
+    return {'message': f'Transaction {txid} successfully deleted.'}

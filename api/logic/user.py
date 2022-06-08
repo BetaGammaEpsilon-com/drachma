@@ -76,4 +76,4 @@ def update_balance(uid):
     set_sql = f'balance = {balance}'
     where = f'uid = {uid}'
     update('users', set_sql, where)
-    print(f'updated balance of User {uid} to {balance}')
+    print(f'Updated balance of User {uid} to {balance}')

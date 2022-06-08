@@ -69,7 +69,10 @@ def route_update_tx(txid):
     
     elif request.method == 'PUT':
         # update Transaction
-        res = logic_tres_modify_tx(txid, request)
+        try:
+            res = logic_tres_modify_tx(txid, request)
+        except IndexError:
+            return format_json(not_found_error(f'Cannot update Transaction: motion does not exist'), status=404)
     
     elif request.method == 'DELETE':
         # delete Transaction
