@@ -133,7 +133,7 @@ def select(tbl, where=None, cols=[]):
     
     if where:
         sql += f' WHERE {where};'
-    print(sql)
+    # print(sql)
     cursor.execute(sql)
     res = cursor.fetchall()
     conn.close()
