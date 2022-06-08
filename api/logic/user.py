@@ -3,7 +3,7 @@ from flask.json import loads
 from api.logic.select import get_user_by_uid, get_transactions_by_uid, create_user_from_sqlresponse
 from api.models.transaction import Transaction
 from api.models.user import User
-from api.db_functions.db_operations import insert, select
+from api.db_functions.db_operations import insert, select, update
 
 def logic_get_user_info(uid):
     """
@@ -64,3 +64,16 @@ def logic_get_users():
     """    
     res = select('users')
     return [create_user_from_sqlresponse(tup) for tup in res]
+
+def update_balance(uid):
+    # get all verified transactions
+    verified = get_transactions_by_uid(uid)['verified']
+    
+    # sum totals
+    balance = sum([t['price'] for t in verified])
+    
+    # update balance in users table
+    set_sql = f'balance = {balance}'
+    where = f'uid = {uid}'
+    update('users', set_sql, where)
+    print(f'updated balance of User {uid} to {balance}')

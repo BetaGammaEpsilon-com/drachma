@@ -83,7 +83,6 @@ def update(tbl, set, where):
         WHERE
             {where};
     '''
-    print(sql)
     cursor.execute(sql)
     conn.commit()
     conn.close()
@@ -134,7 +133,7 @@ def select(tbl, where=None, cols=[]):
     
     if where:
         sql += f' WHERE {where};'
-
+    print(sql)
     cursor.execute(sql)
     res = cursor.fetchall()
     conn.close()

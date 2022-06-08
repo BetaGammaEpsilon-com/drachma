@@ -41,7 +41,7 @@ def route_add_tx():
         Response: Response to send back
     """
     try:
-        return format_json(logic_add_tx(request))
+        return format_json(logic_add_tx(request, verified=True))
     except KeyError:
         return format_json(bad_request_error(f'Request to add a Transaction must include valid `uid`, `price`, `motion`, and `description` fields.'), status=400)
     except RuntimeError:

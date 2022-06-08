@@ -3,7 +3,8 @@ from flask.json import loads
 from api.logic.select import motion_exists
 from api.logic.treasurer import verify_tx
 from api.models.transaction import Transaction
-from api.db_functions.db_operations import insert
+from api.db_functions.db_operations import insert, select
+from api.util.model_factory import create_tx_from_sqlresponse
 
 def logic_add_tx(req, uid=None, verified=False):
     """
@@ -34,7 +35,9 @@ def logic_add_tx(req, uid=None, verified=False):
     res = {'message': f'{tx} added by User {uid}'}
 
     if verified:
-        txid = 0
+        last_tx = select('tx_unverified')[-1]
+        txid = create_tx_from_sqlresponse(last_tx, 0).txid
+        print('most recent tx ID is', txid)
         verify_tx(txid)
         res = {'message': f'{tx} added by Treasurer'}
 

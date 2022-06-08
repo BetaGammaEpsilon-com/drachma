@@ -72,12 +72,15 @@ def get_tx_by_txid(txid):
     where = f'txid = {txid}'
     verified = select('tx', where=where)
     unverified = select('tx_unverified', where=where)
+    print(verified, unverified)
     
     # convert to Transaction objects
     if len(verified) > 0:
         tx = [create_tx_from_sqlresponse(sqlrow, 1) for sqlrow in verified][0]
-    else:
+    elif len(unverified) > 0:
         tx = [create_tx_from_sqlresponse(sqlrow, 0) for sqlrow in unverified][0]
+    else:
+        raise IndexError
     return tx
 
 def get_txs():

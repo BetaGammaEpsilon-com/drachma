@@ -1,7 +1,7 @@
 from flask.json import loads
 
 from api.db_functions.db_operations import update, insert, delete
-from api.logic.user import logic_get_users
+from api.logic.user import logic_get_users, update_balance
 from api.logic.select import get_txs, get_totals, get_tx_by_txid, motion_exists
 from api.models.txstatus import TxStatus
 
@@ -117,7 +117,7 @@ def verify_tx(txid):
     insert('tx', tx)
 
     # edit new balance of user
-
+    update_balance(tx.uid)
     
     # delete old row
     where = f'txid={txid}'
