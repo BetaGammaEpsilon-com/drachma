@@ -39,7 +39,6 @@ def route_user_info(uid):
 def route_user_add_tx(uid):
     """
     Adds a transaction under the User's name. Only adds to the unverified table.
-    Request payload should have all necessary parameters.
     
     Args:
         uid (int): The UID of the User to add the transaction to.
