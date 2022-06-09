@@ -6,28 +6,28 @@
 **[Frontend Repository](https://github.com/BetaGammaEpsilon-com/drachma-frontend)**
 
 ## Features
-- Tracking of money for the entire Fraternity, member by member
-- Transaction history for each member and the organization
-- Automatic Treasurer Report compilation
-- Automatic metrics on spending
+- :heavy_check_mark: Tracking of money for the entire Fraternity, member by member
+- :heavy_check_mark: Transaction history for each member and the organization
+- :heavy_check_mark: Automatic Treasurer Report compilation
+- :heavy_check_mark: Automatic metrics on spending
+- :heavy_check_mark: Endpoint testing in Postman
 - Visualization production for these metrics
 - Auto-update stored Google Drive file as a backup
-- Extensive documentation for potential updates in the future
+- :heavy_check_mark: Extensive documentation for potential updates in the future
 - Ability for users to upload receipts and update their own accounts, for review by the Treasurer
     - The Treasurer can also upload receipts
-- Support for motion transaction tracking, motions can be selected for individual transactions
+- :heavy_check_mark: Support for motion transaction tracking, motions can be selected for individual transactions
     - Visualizations for individual motions as well
 - Estimated billing tracking
 - Slack Integration
 
-## Priorities
+## MVP Priorities
 1. Set up program structure
 2. Database connections
 3. Basic routing
-    - Endpoint testing in Postman
 4. Business logic in Backend
-5. Set up data models, decide formats to pass between frontend and backend
-6. Basic Frontend/Backend connections
+5. Bugfixing for 
+6. Basic Frontend
 7. Polish Frontend
 8. Additional features (fancy things eg. Slack integration)
 9. Abstract, prepare for eventual expansion
