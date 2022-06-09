@@ -16,7 +16,7 @@ def logic_tres_get_all():
     """
     v_tx, u_tx = get_txs()
     v_tot, u_tot, tot = get_totals()
-    users = [u.serialize() for u in logic_get_users()]
+    users = [u for u in logic_get_users()]
     return {
         'verified_tx': v_tx,
         'unverified_tx': u_tx,
@@ -33,7 +33,7 @@ def logic_tres_get_report():
     Returns:
         dict: type = report and report = formatted Markdown string to create table
     """
-    users = logic_get_users()
+    users = logic_get_users(serialize=False)
     report = f'| Brother | Balance |\n| :--- | :---: |\n'
     
     for u in users:
