@@ -55,7 +55,7 @@ def logic_create_user(req):
     insert('users', new_user)
     return {'message': f'New user created successfully.'}
 
-def logic_get_users():
+def logic_get_users(serialize=True):
     """
     Grabs the list of all Users in the 
 
@@ -63,7 +63,10 @@ def logic_get_users():
         list: List of serialized Users
     """    
     res = select('users')
-    return [create_user_from_sqlresponse(tup).serialize() for tup in res]
+    if serialize:
+        return [create_user_from_sqlresponse(tup).serialize() for tup in res]
+    else:
+        return [create_user_from_sqlresponse(tup) for tup in res]
 
 def update_balance(uid):
     # get all verified transactions

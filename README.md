@@ -26,7 +26,7 @@
 2. Database connections
 3. Basic routing
 4. Business logic in Backend
-5. Bugfixing for 
+5. Bugfixing for MVP
 6. Basic Frontend
 7. Polish Frontend
 8. Additional features (fancy things eg. Slack integration)

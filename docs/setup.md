@@ -21,3 +21,5 @@
 7. Run the program:
 
 &nbsp;&nbsp;&nbsp;&nbsp;```python run.py```
+
+8. Run the [Postman 'Ensure Working Endpoints' Flow](https://dark-resonance-841967.postman.co/workspace/Drachma~e0b468fd-e9e4-41b4-8e46-fae6e72cc0a7/flow/62a250042ecaae387abd3d40). Make sure that all requests come back with status code `200`.
