@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil import parser
 
 from api.models.user import User
 from api.models.transaction import Transaction
@@ -30,7 +31,7 @@ def create_tx_from_sqlresponse(sqlres, status):
     """
     txid = int(sqlres[0])
     uid = int(sqlres[1])
-    tx_date = datetime.strptime(sqlres[2], '%Y-%m-%d %H:%M:%S')
+    tx_date = parser.parse(sqlres[2])
     price = float(sqlres[3])
     motion = sqlres[4]
     desc = sqlres[5]
