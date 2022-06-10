@@ -1,5 +1,5 @@
 import os
-from api.tests import models, dbo
+from api.tests import models, dbo, visualize
 from api.db_functions import db_setup
 
 DB_NAME = 'drachma.db'
@@ -22,3 +22,4 @@ if __name__ == '__main__':
     dbo.test_dbo()
 
     # logic tests
+    visualize.test_visualize()
