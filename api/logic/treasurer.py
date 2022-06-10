@@ -2,7 +2,7 @@ from flask.json import loads
 
 from api.db_functions.db_operations import update, delete
 from api.logic.user import logic_get_users, update_balance
-from api.logic.select import get_txs, get_totals, get_tx_by_txid, motion_exists
+from api.logic.select import get_txs, get_totals, get_tx_by_txid, motion_exists, get_user_by_uid
 from api.logic.transaction import verify_tx
 from api.models.txstatus import TxStatus
 
@@ -56,7 +56,8 @@ def logic_tres_get_tx(txid):
     """    
     tx = get_tx_by_txid(txid)
     return {
-        'transaction': tx.serialize()
+        'transaction': tx.serialize(),
+        'user': get_user_by_uid(tx.uid).serialize()
     }
 
 def logic_tres_modify_tx(txid, req):
