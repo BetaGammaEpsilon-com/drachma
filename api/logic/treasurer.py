@@ -17,9 +17,29 @@ def logic_tres_get_all():
     v_tx, u_tx = get_txs()
     v_tot, u_tot, tot = get_totals()
     users = [u for u in logic_get_users()]
+
+    paired_vtx = []
+    for tx in v_tx:
+        uid = tx['uid']
+        print(uid)
+        user = get_user_by_uid(uid).serialize()
+        paired_vtx.append({
+            'transaction': tx,
+            'user': user
+        })
+
+    paired_utx = []
+    for tx in u_tx:
+        uid = tx['uid']
+        user = get_user_by_uid(uid).serialize()
+        paired_utx.append({
+            'transaction': tx,
+            'user': user
+        })
+
     return {
-        'verified_tx': v_tx,
-        'unverified_tx': u_tx,
+        'verified_tx': paired_vtx,
+        'unverified_tx': paired_utx,
         'verified_total': v_tot,
         'unverified_total': u_tot,
         'total': tot,
