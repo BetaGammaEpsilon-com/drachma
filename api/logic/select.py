@@ -15,7 +15,7 @@ def get_user_by_uid(uid):
     where = f'uid = {uid}'
     result = select('users', where=where)
     if len(result) == 0:
-        raise IndexError('No User with that UID in the users table')
+        raise IndexError(f'No User with UID {uid} in the users table')
     user = create_user_from_sqlresponse(result[0])
     return user
 
