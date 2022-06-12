@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from datetime import datetime, timedelta
 from dateutil import parser
 
 def logic_visualize_transaction(verified, unverified):
@@ -17,7 +16,7 @@ def logic_visualize_transaction(verified, unverified):
 
     plt.plot([dt.strftime('%m-%d-%y') for dt in v_dates], v_prices, label='Verified Transactions')
     plt.plot([dt.strftime('%m-%d-%y') for dt in u_dates], u_prices, label='Unverified Transactions')
-    plt.gca().xaxis.set_tick_params(rotation = 60)  
+    plt.gca().xaxis.set_tick_params(rotation = 80)  
     plt.title('Transactions in the Last Month')
     plt.ylabel('Transaction Prices')
     plt.legend()
