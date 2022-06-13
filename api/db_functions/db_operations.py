@@ -197,4 +197,5 @@ def insert_motion(motion):
     sql = f"INSERT INTO motions VALUES ('{motion}', CURRENT_TIMESTAMP);"
 
     cursor.execute(sql)
+    conn.commit()
     conn.close()

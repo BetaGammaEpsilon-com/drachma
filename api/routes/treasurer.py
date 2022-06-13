@@ -100,8 +100,10 @@ def route_motions():
             res = logic_motions_create_motion(request)
         except KeyError:
             return format_json(bad_request_error('request must include `motion` parameter.'), status=400)
+        except RuntimeError:
+            return format_json(bad_request_error('Motion name must be unique.'), status=401)
         except:
-            return format_json(generic_error('Unknown error in POST to /tres/motions'), status=401)
+            return format_json(generic_error('Unknown error in POST to /tres/motions'), status=500)
     
     elif request.method == 'DELETE':
         # delete motion

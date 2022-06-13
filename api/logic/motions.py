@@ -13,7 +13,7 @@ def logic_motions_create_motion(req):
     
     # don't add if motion already exists
     if motion_exists(motion):
-        raise RuntimeError
+        raise RuntimeError('motion already exists')
     
     insert_motion(motion)
     return {'message': f'Motion `{motion}` inserted successfully'}
@@ -23,9 +23,9 @@ def logic_motions_delete_motion(req):
     motion = req_body['motion']
 
     if not motion_exists(motion):
-        raise IndexError
+        raise IndexError(f'motion {motion} does not exist, and cannot be deleted.')
 
-    delete('motions', f'motion = {motion}')
+    delete('motions', f"motion='{motion}'")
     return {'message': f'Motion `{motion}` deleted successfully'}
 
 def _format_motion_from_sqlresponse(sql):
