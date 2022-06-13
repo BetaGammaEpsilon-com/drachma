@@ -29,7 +29,6 @@ def create_tx_from_sqlresponse(sqlres, status):
     Returns:
         Transaction: the Transaction described in this SQL response tuple
     """
-    print(sqlres)
     txid = int(sqlres[0])
     uid = int(sqlres[1])
     tx_date = parser.parse(sqlres[2])

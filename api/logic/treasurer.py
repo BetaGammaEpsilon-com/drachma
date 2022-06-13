@@ -21,7 +21,6 @@ def logic_tres_get_all():
     paired_vtx = []
     for tx in v_tx:
         uid = tx['uid']
-        print(uid)
         user = get_user_by_uid(uid).serialize()
         paired_vtx.append({
             'transaction': tx,
@@ -81,7 +80,19 @@ def logic_tres_get_tx(txid):
     }
 
 def logic_tres_modify_tx(txid, req):
+    """
+    For modifying a Transaction, including verification.
 
+    Args:
+        txid (int): The Transaction ID
+        req (flask.Request): The Request object
+
+    Raises:
+        IndexError: If the motion supplied does not exist
+
+    Returns:
+        dict: Response message
+    """
     change_date = False
     tx = get_tx_by_txid(txid)
     pre_status = tx.status
