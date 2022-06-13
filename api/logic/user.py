@@ -69,6 +69,12 @@ def logic_get_users(serialize=True):
         return [create_user_from_sqlresponse(tup) for tup in res]
 
 def update_balance(uid):
+    """
+    Updates the balance of a user by scanning through the verified transactions and totals them for the given User.
+
+    Args:
+        uid (int): The User ID of the User whose balance gets updated
+    """
     # get all verified transactions
     verified = get_transactions_by_uid(uid)['verified']
     
