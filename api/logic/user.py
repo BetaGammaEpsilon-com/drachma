@@ -1,7 +1,6 @@
 from flask.json import loads
 
 from api.logic.select import get_uid_by_name, get_user_by_uid, get_transactions_by_uid, user_exists
-from api.logic.transaction import logic_add_tx, verify_tx
 from api.models.transaction import Transaction
 from api.models.user import User
 from api.db_functions.db_operations import delete, insert, select, update
@@ -59,12 +58,18 @@ def logic_create_user(req):
 
     # create a Transaction to balance book
     if balance != 0:
-        tx = Transaction(uid, balance, 0, motion='eboard', description=f'Balance of new User: {name}')
-        logic_add_tx()
-        last_tx = select('tx_unverified')[-1]
-        txid = create_tx_from_sqlresponse(last_tx, 0).txid
-        verify_tx(txid)
-
+        tx = Transaction(uid, balance, 0, motion='drachma_admin', description=f'Initial balance of new User: {name}')
+        insert('tx_unverified', tx)
+        
+        tx_sqlres = select('tx_unverified')[-1]
+        new_tx = create_tx_from_sqlresponse(tx_sqlres, 0)
+        new_tx.verify()
+        insert('tx', new_tx)
+        
+        update_balance(new_tx.uid)
+        where = f'txid={new_tx.txid}'
+        delete('tx_unverified', where)
+        
     return {'message': f'New user created successfully.'}
 
 def logic_delete_user(uid):
