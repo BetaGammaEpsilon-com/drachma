@@ -174,11 +174,11 @@ Deletes transaction `txid` from verified or unverified table, whichever it exist
 
 <hr />
 
-`GET /tres/motion`
+`GET /tres/motions`
 
 Returns all available motions.
 
-`POST /tres/motion`
+`POST /tres/motions`
 
 Adds a motion.
 
@@ -189,7 +189,7 @@ Sample Request Body:
 }
 ```
 
-`DELETE /tres/motion`
+`DELETE /tres/motions`
 
 Deletes a motion.
 
