@@ -70,6 +70,10 @@ On insertion error `STATUS CODE: 403`
 
 Displays all listed transactions of the user, separated by verification status.
 
+`DELETE /user/<uid>`
+
+Deletes the User at the given User ID
+
 <hr />
 
 `POST /user/<uid>/tx`

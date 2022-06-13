@@ -37,7 +37,6 @@ def logic_add_tx(req, uid=None, verified=False):
     if verified:
         last_tx = select('tx_unverified')[-1]
         txid = create_tx_from_sqlresponse(last_tx, 0).txid
-        print('most recent tx ID is', txid)
         verify_tx(txid)
         res = {'message': f'{tx} added by Treasurer'}
 
