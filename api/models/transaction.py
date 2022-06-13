@@ -3,7 +3,7 @@ from api.models.txstatus import TxStatus
 
 class Transaction():
 
-    def __init__(self, uid, price, status, txid=None, tx_date=None, motion='NULL', description='NULL'):
+    def __init__(self, uid, price, status, txid=None, tx_date=None, motion='NULL', description='NULL', description_url='NULL'):
         """
         Defines a Transaction in the `tx` table.
 
@@ -12,8 +12,9 @@ class Transaction():
             price (float): The price of the Transaction
             status (integer): The verification status of the Transaction
             txid (integer, optional): The Transaction ID of a processed Transaction
-            motion (string, optional): The motion to file the Transaction under. Defaults to 'NULL'.
-            description (string, optional): A description of the Transaction. Defaults to 'NULL'.     
+            motion (string): The motion to file the Transaction under. Defaults to 'NULL'.
+            description (string, optional): A description of the Transaction. Defaults to 'NULL'.   
+            description_url (string, optional): When an image is attached, this parameter describes the location of said image  
         """
         self.uid = uid
         self.price = price
@@ -25,6 +26,7 @@ class Transaction():
             
         self.motion = motion
         self.description = description
+        self.description_url = description_url
         
         # table name listed with this entry
         if self.status == TxStatus.VERIFIED:
@@ -42,7 +44,8 @@ class Transaction():
             'tx_date',
             'price',
             'motion',
-            'description'
+            'description',
+            'description_url'
         ]
 
         if self.txid:
@@ -92,6 +95,10 @@ class Transaction():
             val_sql += f'NULL, '
         if not self.description == 'NULL':
             val_sql += f"'{self.description}'"
+        else:
+            val_sql += f'NULL'
+        if not self.description_url == 'NULL':
+            val_sql += f"'{self.description_url}'"
         else:
             val_sql += f'NULL'
         return col_sql, val_sql

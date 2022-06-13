@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS tx_unverified (
     tx_date datetime NOT NULL,
     price float NOT NULL,
     motion text NOT NULL,
-    description text
+    description text,
+    description_url text
 );
 
 CREATE TABLE IF NOT EXISTS tx (
@@ -19,7 +20,8 @@ CREATE TABLE IF NOT EXISTS tx (
     tx_date datetime NOT NULL,
     price float NOT NULL,
     motion text NOT NULL,
-    description text
+    description text,
+    description_url text
 );
 
 CREATE TABLE IF NOT EXISTS motions (

@@ -17,6 +17,8 @@
 | txdate | datetime | Date and time of the Transaction being added to the table |
 | price  |  float   |                                  Price of the Transaction |
 | motion |   text   |                    Motion associated with the Transaction |
+| description | text | An optional description of the motion |
+| description_url | text | A URL describing where a receipt for this object is stored |
 
 ## tx_unverified
 #### Unverified Transactions
@@ -28,6 +30,8 @@
 | txdate | datetime | Date and time of the Transaction being added to the table |
 | price  |  float   |                                  Price of the Transaction |
 | motion |   text   |                    Motion associated with the Transaction |
+| description | text | An optional description of the motion |
+| description_url | text | A URL describing where a receipt for this object is stored |
 
 ## motions
 #### Motion information
