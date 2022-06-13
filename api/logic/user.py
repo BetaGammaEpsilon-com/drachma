@@ -1,9 +1,10 @@
 from flask.json import loads
 
-from api.logic.select import get_user_by_uid, get_transactions_by_uid, create_user_from_sqlresponse
+from api.logic.select import get_uid_by_name, get_user_by_uid, get_transactions_by_uid, user_exists
 from api.models.transaction import Transaction
 from api.models.user import User
-from api.db_functions.db_operations import insert, select, update
+from api.db_functions.db_operations import delete, insert, select, update
+from api.util.model_factory import create_user_from_sqlresponse, create_tx_from_sqlresponse
 
 def logic_get_user_info(uid):
     """
@@ -53,7 +54,36 @@ def logic_create_user(req):
     new_user = User(name, balance=balance)
 
     insert('users', new_user)
+    uid = get_uid_by_name(name)
+
+    # create a Transaction to balance book
+    if balance != 0:
+        tx = Transaction(uid, balance, 0, motion='drachma_admin', description=f'Initial balance of new User: {name}')
+        insert('tx_unverified', tx)
+        
+        tx_sqlres = select('tx_unverified')[-1]
+        new_tx = create_tx_from_sqlresponse(tx_sqlres, 0)
+        new_tx.verify()
+        insert('tx', new_tx)
+        
+        update_balance(new_tx.uid)
+        where = f'txid={new_tx.txid}'
+        delete('tx_unverified', where)
+        
     return {'message': f'New user created successfully.'}
+
+def logic_delete_user(uid):
+    """
+    Deletes the User at UID
+
+    Args:
+        uid (int): The User ID
+    """
+    if not user_exists(uid):
+        raise IndexError(f'User {uid} not found')
+    
+    delete('users', where=f'uid={uid}')
+    return {'message': f'Successfully deleted User {uid}'}
 
 def logic_get_users(serialize=True):
     """
