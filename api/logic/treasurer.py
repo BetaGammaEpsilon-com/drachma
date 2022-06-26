@@ -114,7 +114,7 @@ def logic_tres_modify_tx(txid, req):
         change_date = True
 
     # make update
-    table = 'tx' if pre_status == 1 else 'tx_unverified'
+    table = 'tx' if pre_status == TxStatus.VERIFIED else 'tx_unverified'
     if change_date:
         set_sql = f"uid={uid}, tx_date=CURRENT_TIMESTAMP, price={price}, motion='{motion}', description='{description}'"
     else:
